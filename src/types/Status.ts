@@ -1,0 +1,11 @@
+
+export enum Status {
+    RASCUNHO,
+    AGUARDANDO_APROVACAO,
+    APROVADO,
+    REJEITADO,
+    EM_COTACAO,
+    PEDIDO_GERADO,
+    RECEBIDO,
+    CANCELADO
+}
