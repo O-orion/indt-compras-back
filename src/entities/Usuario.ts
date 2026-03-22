@@ -13,7 +13,10 @@ export class Usuario {
     @Column({ type: 'text', nullable: false })
     nome!: string;
 
-    @Column({ type: 'text', nullable: false })
+    @Column({ type: 'text', unique: true, nullable: false })
+    email!: string;
+
+    @Column({ type: 'text', nullable: false, select: false })
     senha_hash!: string;
 
     @Column({ type: 'enum', enum: Perfil, nullable: false })

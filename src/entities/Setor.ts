@@ -12,7 +12,7 @@ export class Setor {
     nome!: string;
 
     @Column({ type: 'text', nullable: true })
-    descricao!: string;
+    descricao?: string | null;
 
     @OneToMany(() => Usuario, (Usuario) => Usuario.setor)
     usuarios!: Usuario[];
