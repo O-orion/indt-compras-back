@@ -17,7 +17,7 @@ export class ItemRequisicao {
     unidade!: string;
 
     @Column({ type: "text", nullable: true })
-    especificao!: string;
+    especificao?: string | null;
 
     @ManyToOne(() => Requisicao, (r) => r.itens, { nullable: false })
     @JoinColumn({ name: 'requisicao_id'})

@@ -13,13 +13,13 @@ export class Cotacao {
     preco_unitario!: number;
 
     @Column({ type: "integer", nullable: true })
-    prazo_entrega_dias!: number;
+    prazo_entrega_dias?: number | null;
 
     @Column({ type: 'boolean', default: false })
     selecionada!: boolean
 
     @Column({ type: "text", nullable: true })
-    observacao!: string;
+    observacao?: string | null;
 
     @CreateDateColumn({ type: 'timestamptz' })
     created_at!: Date

@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, Pri
 import { Perfil } from "../types/Perfil.js";
 import { Setor } from "./Setor.js";
 import { Requisicao } from "./Requisicao.js";
+import { Sessao } from "./Sessao.js";
 
 
 @Entity('usuario')
@@ -28,6 +29,9 @@ export class Usuario {
 
     @OneToMany(() => Requisicao, (r) => r.solicitante)
     requisicoes_abertas!: Requisicao[]
+
+    @OneToMany(() => Sessao, (s) => s.usuario)
+    sessoes!: Sessao[]
 
     @CreateDateColumn({ type: 'timestamptz' })
     created_at!: Date

@@ -3,6 +3,7 @@ import { hash } from "bcryptjs";
 import { Usuario } from "../entities/Usuario.js";
 import { Setor } from "../entities/Setor.js";
 import type { CreateUserSchemaDTO, UpdateUserSchemaDTO } from "../dtos/CreateUserSchemaDTO.js";
+import { AppError } from "../errors/AppError.js";
 
 export class UsuarioService {
     private userRepo: Repository<Usuario>;
@@ -28,12 +29,12 @@ export class UsuarioService {
     async createUsuario(userData: CreateUserSchemaDTO) {
         const usuario = await this.findByEmail(userData.email);
         if (usuario) {
-            throw new Error("Usuario ja cadastrado!");
+            throw new AppError("Usuario ja cadastrado!", 409);
         }
 
         const setor = await this.setorRepo.findOne({ where: { id: userData.setor_id } });
         if (!setor) {
-            throw new Error("Setor nao encontrado!");
+            throw new AppError("Setor nao encontrado!", 404);
         }
 
         const senha_hash = await hash(userData.password, 10);
@@ -52,13 +53,13 @@ export class UsuarioService {
         const usuario = await this.findById(id);
 
         if (!usuario) {
-            throw new Error("Usuario nao encontrado!");
+            throw new AppError("Usuario nao encontrado!", 404);
         }
 
         if (userUpdate.email && userUpdate.email !== usuario.email) {
             const emailEmUso = await this.findByEmail(userUpdate.email);
             if (emailEmUso) {
-                throw new Error("Email ja cadastrado!");
+                throw new AppError("Email ja cadastrado!", 409);
             }
         }
 
@@ -66,11 +67,11 @@ export class UsuarioService {
 
         if (userUpdate.setor_id) {
             setor = await this.setorRepo.findOne({
-            where: { id: userUpdate.setor_id },
+                where: { id: userUpdate.setor_id },
             });
 
             if (!setor) {
-                throw new Error("Setor nao encontrado!");
+                throw new AppError("Setor nao encontrado!", 404);
             }
         }
 
@@ -86,8 +87,7 @@ export class UsuarioService {
         const result = await this.userRepo.delete(id);
 
         if (result.affected === 0) {
-            throw new Error("Usuário não encontrado!");
+            throw new AppError("Usuario nao encontrado!", 404);
         }
-
     }
 }

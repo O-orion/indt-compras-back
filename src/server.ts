@@ -3,12 +3,14 @@ import express from 'express';
 import 'dotenv/config';
 import { appDataSource } from './database/appDataSource.js';
 import routes from './routes/index.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
 app.use(express.json());
 app.use(routes);
+app.use(errorHandler);
 
 appDataSource.initialize()
         .then(() => {
