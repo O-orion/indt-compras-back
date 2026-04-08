@@ -10,12 +10,15 @@ export default class UsuarioController {
         this.userService = userService;
     }
 
-    async findAllUser(_req: Request, res: Response) {
+    async findAllUser(req: Request, res: Response) {
+
         const users = await this.userService.findAll();
         return res.status(200).json(users);
     }
 
     async findUserById(req: Request, res: Response) {
+
+
         const user = await this.userService.findById(req.params.id as string);
         if (!user) {
             throw new AppError("Usuario nao encontrado!", 404);

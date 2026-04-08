@@ -1,6 +1,19 @@
 import type { RequestHandler } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import { AppError } from "../errors/AppError.js";
+import type { Perfil } from "../types/Perfil.js";
+
+declare global {
+    namespace Express {
+        interface Request {
+            auth?: AuthPayload;
+        }
+    }
+}
+export interface AuthPayload extends JwtPayload {
+    sub: string;
+    perfil: Perfil
+}
 
 const getAccessSecret = () => {
     const value = process.env.JWT_ACCESS_SECRET;
@@ -23,7 +36,7 @@ export const ensureAuth: RequestHandler = (req, _res, next) => {
     }
 
     try {
-        const payload = jwt.verify(token, getAccessSecret()) as JwtPayload;
+        const payload = jwt.verify(token, getAccessSecret()) as AuthPayload;
         (req as { auth?: JwtPayload }).auth = payload;
         return next();
     } catch {

@@ -23,7 +23,7 @@ export class AuthService {
         return (jwt.sign as Function)(
             { sub: usuario.id, perfil: usuario.perfil },
             process.env.JWT_ACCESS_SECRET!,
-            { expiresIn: "15m" }
+            { expiresIn: "7d" }
         );
     }
 
@@ -67,8 +67,10 @@ export class AuthService {
         await this.sessionRepo.save(sessao);
 
         const refreshToken = this.gerarRefreshToken(sessao.id, usuario.id);
+
         sessao.refresh_token_hash = this.hashToken(refreshToken);
         sessao.expires_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
         await this.sessionRepo.save(sessao);
 
         const accessToken = this.gerarAccessToken(usuario);

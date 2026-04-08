@@ -11,7 +11,9 @@
     "dev": "tsx watch src/server.ts",
     "dev:nodemon": "nodemon --watch src --ext ts --exec \"tsx src/server.ts\"",
     "build": "npx tsc ",
-    "start": "node dist/server.ts"
+    "start": "node dist/server.ts",
+    "seed:gestor": "tsx scripts/seed-gestor.ts",
+    "seed:usuarios": "tsx scripts/seed-gestor.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
