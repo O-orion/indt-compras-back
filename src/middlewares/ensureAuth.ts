@@ -3,17 +3,22 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 import { AppError } from "../errors/AppError.js";
 import type { Perfil } from "../types/Perfil.js";
 
+
+// 
+
 declare global {
     namespace Express {
         interface Request {
-            auth?: AuthPayload;
+         auth?: AuthPayload;
         }
     }
 }
+
 export interface AuthPayload extends JwtPayload {
     sub: string;
     perfil: Perfil
 }
+
 
 const getAccessSecret = () => {
     const value = process.env.JWT_ACCESS_SECRET;

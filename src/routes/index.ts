@@ -7,11 +7,12 @@ import itemRequisicaoRoutes from "./itemRequisicaoRoutes.js";
 import requisicaoRoutes from "./requisicaoRoutes.js";
 import { ensureAuth } from "../middlewares/ensureAuth.js";
 
+
 const routes = Router();
 
 routes.use("/auth", authRoutes);
 //routes.use(ensureAuth);
-routes.use("/usuarios", usuarioRoutes);
+routes.use("/usuarios",  usuarioRoutes);
 routes.use("/setores", setorRoutes);
 routes.use("/cotacoes", cotacaoRoutes);
 routes.use("/itens-requisicao", itemRequisicaoRoutes);

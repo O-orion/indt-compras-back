@@ -21,7 +21,9 @@ export class AuthService {
 
     private gerarAccessToken(usuario: Usuario): string {
         return (jwt.sign as Function)(
+            
             { sub: usuario.id, perfil: usuario.perfil },
+
             process.env.JWT_ACCESS_SECRET!,
             { expiresIn: "7d" }
         );

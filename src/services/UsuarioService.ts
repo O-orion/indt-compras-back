@@ -27,7 +27,9 @@ export class UsuarioService {
     }
 
     async createUsuario(userData: CreateUserSchemaDTO) {
+
         const usuario = await this.findByEmail(userData.email);
+
         if (usuario) {
             throw new AppError("Usuario ja cadastrado!", 409);
         }
@@ -90,4 +92,7 @@ export class UsuarioService {
             throw new AppError("Usuario nao encontrado!", 404);
         }
     }
+
+    
+
 }

@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import type { UsuarioService } from "../services/UsuarioService.js";
 import type { CreateUserSchemaDTO, UpdateUserSchemaDTO } from "../dtos/CreateUserSchemaDTO.js";
 import { AppError } from "../errors/AppError.js";
+import { Perfil } from "../types/Perfil.js";
 
 export default class UsuarioController {
     private userService: UsuarioService;
@@ -14,6 +15,7 @@ export default class UsuarioController {
 
         const users = await this.userService.findAll();
         return res.status(200).json(users);
+        
     }
 
     async findUserById(req: Request, res: Response) {
